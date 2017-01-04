@@ -49,7 +49,7 @@ def analyticCont(url):
     else:
         print 'API接口内容获取失败，错误代码:%s'%bejson["returnCode"]
 
-    print bejson.keys()
+    print results.keys()
 
 
 
