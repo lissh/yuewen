@@ -45,11 +45,21 @@ def analyticCont(url):
     content = urllib2.urlopen(req).read()
     bejson = json.loads(str(content))
     if bejson["returnCode"]==0 and bejson["returnMsg"]=="Success":
-        results=bejson['result']
+        result=bejson['result']
     else:
         print 'API接口内容获取失败，错误代码:%s'%bejson["returnCode"]
 
-    print results.keys()
+    islist=isinstance(result,list)
+    while islist!=True:
+        resultkeys= result.keys()
+        for resultkey in resultkeys:
+            result=result[resultkey]
+            islist = isinstance(result, list)
+            if islist:
+                break
+
+    print islist
+
 
 
 
