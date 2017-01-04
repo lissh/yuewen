@@ -36,9 +36,22 @@ def createActionURL(appKey, actionInfos):
         else:
             url_para += key + '=' + str(value)
     url = host_url + url_para
+
+    return url
+
+
+def analyticCont(url):
     req = urllib2.Request(url)
     content = urllib2.urlopen(req).read()
-    print content
+    bejson = json.loads(str(content))
+    if bejson["returnCode"]==0 and bejson["returnMsg"]=="Success":
+        results=bejson['result']
+    else:
+        print 'API接口内容获取失败，错误代码:%s'%bejson["returnCode"]
+
+    print bejson.keys()
+
+
 
 
 
@@ -58,4 +71,17 @@ if __name__ == '__main__':
     appKey = 'b7f7a2f01203'
     # actionInfos={'action':'bookinfo','CBID':22037867000124502,'pageNo':1,'pageSize':5}
     actionInfos = {'service':'CpNovel','action': 'booklist'}
-    createActionURL(appKey, actionInfos)
+    url_booklist=createActionURL(appKey,actionInfos)
+    cbids=analyticCont(url_booklist)
+    #
+    # actionInfos = {'action': 'bookinfo', 'CBID': 22037867000124502, 'pageNo': 1, 'pageSize': 5}
+    # url_booklist=createActionURL(appKey,actionInfos)
+    # analyticCont(url_booklist)
+
+    # url_booklist=createActionURL(appKey,actionInfos)
+    # analyticCont(url_booklist)
+    # url_booklist=createActionURL(appKey,actionInfos)
+    # analyticCont(url_booklist)
+    # url_booklist=createActionURL(appKey,actionInfos)
+    # analyticCont(url_booklist)
+
